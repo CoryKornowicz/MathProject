@@ -1,5 +1,7 @@
 from sympy.parsing.latex import parse_latex
 
-if __name__ == '__main__':
-    expr = parse_latex("\\frac{d}{dx} x^{2}")
-    print(expr)
+
+def calculateFunction(func):
+    #expr = parse_latex("\\frac{1}{\sqrt{x}}")
+    expr = parse_latex(func)
+    print(expr.evalf())
