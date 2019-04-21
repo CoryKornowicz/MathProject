@@ -10,9 +10,13 @@
 
 from PySide2 import QtCore, QtGui, QtWidgets
 import functions
+import sympy.parsing.latex as pl
+from sympy.functions import sin, cos, ln
+import sympy as sy
 
 
 class Ui_Dialog(object):
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(432, 327)
@@ -29,12 +33,17 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
 
-
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QtWidgets.QApplication.translate("Dialog", "Dialog", None, -1))
         self.calculateButton.setText(QtWidgets.QApplication.translate("Dialog", "Calculate", None, -1))
 
     def accept(self):
-        functions.calculateFunction(self.lineEdit.text())
+        # functions.calculateFunction(self.lineEdit.text())
+        # functions.plot()
+        # Define the variable and the function to approximate
+        x = sy.Symbol('x')
+        f = ln(1 + x)
+        expr = pl.parse_latex(self.lineEdit.text())
+        functions.plot(expr.evalf())
 
 
