@@ -2,6 +2,7 @@ from sympy.parsing.latex import parse_latex
 import sympy as sy
 import numpy as np
 from sympy.functions import sin, cos, ln
+from sympy import Integral, Derivative
 import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")
@@ -25,7 +26,7 @@ def taylor(function, x0, n, x=sy.Symbol('x')):
     return p
 
 
-def plot(f, x0=0, n=9, by=2, x_lims=[-5, 5], y_lims=[-5, 5], npoints=800, x=sy.Symbol('x')):
+def plot(f, x0=0, n=20, by=1, x_lims=[-5, 5], y_lims=[-5, 5], npoints=800, x=sy.Symbol('x')):
     x1 = np.linspace(x_lims[0], x_lims[1], npoints)
     # Approximate up until n starting from 1 and using steps of by
     for j in range(1, n + 1, by):
@@ -45,10 +46,3 @@ def plot(f, x0=0, n=9, by=2, x_lims=[-5, 5], y_lims=[-5, 5], npoints=800, x=sy.S
     plt.grid(True)
     plt.title('Taylor series approximation')
     plt.show()
-
-
-
-def calculateFunction(func):
-    #expr = parse_latex("\\frac{1}{\sqrt{x}}")
-    expr = parse_latex(func)
-    print(expr.evalf())
