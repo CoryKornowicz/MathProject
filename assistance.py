@@ -17,7 +17,7 @@ def e_taylor(x, n, previous):
     return exp(x).taylor_term(n, x, previous)
 
 
-def ln_taylor(x, n , previous):
+def ln_taylor(x, n, previous):
     return ln(x).taylor_term(n, x, previous)
 
 
@@ -28,7 +28,7 @@ def one_over_taylor(x, n):
 
 
 # Taylor approximation at x0 of the function 'function'
-def taylor(func, x0, n, x=sympy.Symbol('x')):
+def taylor(func, x0, n, x=Symbol('x')):
     i = 0
     p = 0
     while i <= n:

@@ -6,78 +6,89 @@ from sympy.functions import sin, cos, ln
 from sympy import *
 import numpy as np
 import matplotlib.pyplot as plt
+import assistance as ast
 
-# TODO: Add in Helping Statements and Default Values
+# TODO: Add in Helping Statements and Default Values, And Resetting Values on Clear and then Plotting the right curves
+plt.style.use("ggplot")
 
 from PySide2 import QtCore, QtGui, QtWidgets
-
-plt.style.use("ggplot")
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(709, 530)
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 70, 691, 41))
-        self.lineEdit.setObjectName("lineEdit")
-        self.textEdit = QtWidgets.QTextEdit(Dialog)
-        self.textEdit.setGeometry(QtCore.QRect(10, 140, 691, 381))
-        self.textEdit.setObjectName("textEdit")
-        self.calculateButton = QtWidgets.QPushButton(Dialog)
-        self.calculateButton.setGeometry(QtCore.QRect(10, 110, 113, 32))
-        self.calculateButton.setObjectName("calculateButton")
-        self.calculateButton.clicked.connect(self.accept)
-        self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(120, 110, 113, 32))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.clear_boxes)
-        self.spinBox_2 = QtWidgets.QSpinBox(Dialog)
-        self.spinBox_2.setGeometry(QtCore.QRect(230, 10, 48, 24))
-        self.spinBox_2.setObjectName("spinBox_2")
-        self.spinBox = QtWidgets.QSpinBox(Dialog)
-        self.spinBox.setGeometry(QtCore.QRect(300, 10, 48, 24))
-        self.spinBox.setObjectName("spinBox")
-        self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(10, 10, 221, 21))
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(280, 10, 60, 21))
-        self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(Dialog)
-        self.label_3.setGeometry(QtCore.QRect(10, 30, 161, 21))
-        self.label_3.setObjectName("label_3")
-        self.spinBox_3 = QtWidgets.QSpinBox(Dialog)
-        self.spinBox_3.setGeometry(QtCore.QRect(170, 30, 48, 24))
+        self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 711, 521))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.spinBox_3 = QtWidgets.QSpinBox(self.verticalLayoutWidget)
         self.spinBox_3.setObjectName("spinBox_3")
-        self.label_4 = QtWidgets.QLabel(Dialog)
-        self.label_4.setGeometry(QtCore.QRect(10, 50, 60, 16))
-        self.label_4.setObjectName("label_4")
-        self.lineEdit_2 = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_2.setGeometry(QtCore.QRect(420, 10, 111, 21))
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.label_5 = QtWidgets.QLabel(Dialog)
-        self.label_5.setGeometry(QtCore.QRect(360, 10, 60, 21))
+        self.gridLayout.addWidget(self.spinBox_3, 1, 1, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_5.setObjectName("label_5")
-        self.label_6 = QtWidgets.QLabel(Dialog)
-        self.label_6.setGeometry(QtCore.QRect(360, 40, 60, 16))
+        self.gridLayout.addWidget(self.label_5, 0, 4, 1, 1)
+        self.spinBox_2 = QtWidgets.QSpinBox(self.verticalLayoutWidget)
+        self.spinBox_2.setObjectName("spinBox_2")
+        self.gridLayout.addWidget(self.spinBox_2, 0, 1, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 0, 2, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout.addWidget(self.label_3, 1, 0, 1, 1)
+        self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.spinBox = QtWidgets.QSpinBox(self.verticalLayoutWidget)
+        self.spinBox.setObjectName("spinBox")
+        self.gridLayout.addWidget(self.spinBox, 0, 3, 1, 1)
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.gridLayout.addWidget(self.lineEdit_2, 0, 5, 1, 1)
+        self.label_6 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_6.setObjectName("label_6")
-        self.lineEdit_3 = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_3.setGeometry(QtCore.QRect(420, 40, 113, 21))
+        self.gridLayout.addWidget(self.label_6, 1, 4, 1, 1)
+        self.lineEdit_3 = QtWidgets.QLineEdit(self.verticalLayoutWidget)
         self.lineEdit_3.setObjectName("lineEdit_3")
+        self.gridLayout.addWidget(self.lineEdit_3, 1, 5, 1, 1)
+        self.verticalLayout_2.addLayout(self.gridLayout)
+        self.label_4 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout_2.addWidget(self.label_4)
+        self.lineEdit = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.lineEdit.setMinimumSize(QtCore.QSize(0, 30))
+        self.lineEdit.setObjectName("lineEdit")
+        self.verticalLayout_2.addWidget(self.lineEdit)
+        self.calculateButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.calculateButton.setObjectName("calculateButton")
+        self.verticalLayout_2.addWidget(self.calculateButton)
+        self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton.setObjectName("pushButton")
+        self.verticalLayout_2.addWidget(self.pushButton)
+        self.textEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget)
+        self.textEdit.setObjectName("textEdit")
+        self.verticalLayout_2.addWidget(self.textEdit)
+
+        self.calculateButton.clicked.connect(self.accept)
+        self.pushButton.clicked.connect(self.clear_boxes)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QtWidgets.QApplication.translate("Dialog", "Dialog", None, -1))
-        self.calculateButton.setText(QtWidgets.QApplication.translate("Dialog", "Calculate", None, -1))
-        self.pushButton.setText(QtWidgets.QApplication.translate("Dialog", "Clear", None, -1))
-        self.label.setText(QtWidgets.QApplication.translate("Dialog", "Display the range of iterations from", None, -1))
+        self.label_5.setText(QtWidgets.QApplication.translate("Dialog", "X-Offset", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("Dialog", "to", None, -1))
         self.label_3.setText(QtWidgets.QApplication.translate("Dialog", "How many total iterations", None, -1))
-        self.label_4.setText(QtWidgets.QApplication.translate("Dialog", "Function:", None, -1))
-        self.label_5.setText(QtWidgets.QApplication.translate("Dialog", "X-Offset", None, -1))
+        self.label.setText(QtWidgets.QApplication.translate("Dialog", "Display the range of iterations from", None, -1))
         self.label_6.setText(QtWidgets.QApplication.translate("Dialog", "Iterate By", None, -1))
+        self.label_4.setText(QtWidgets.QApplication.translate("Dialog", "Function:", None, -1))
+        self.calculateButton.setText(QtWidgets.QApplication.translate("Dialog", "Calculate", None, -1))
+        self.pushButton.setText(QtWidgets.QApplication.translate("Dialog", "Clear", None, -1))
 
     def accept(self):
         # functions.calculateFunction(self.lineEdit.text())
@@ -86,11 +97,7 @@ class Ui_Dialog(object):
         # text = str(self.lineEdit.text())
         # self.print_to_text_field("Evaluating [" + text + "]")
         # Need
-        #  [x]function name
-        #  [x]range
-        #  [0]by counter
-        #  [0]n count
-        #
+        #   reset values on clearing
 
         try:
             text = pl.parse_latex(self.lineEdit.text())
@@ -104,11 +111,11 @@ class Ui_Dialog(object):
             self.print_to_text_field("Function is improperly formatted")
             return
 
-        from_num = self.spinBox.text()
-        to_num = self.spinBox_2.text()
+        to_num = int(self.spinBox.text())
+        from_num = int(self.spinBox_2.text())
 
         try:
-            by_num = self.lineEdit_2.text()
+            by_num = int(self.lineEdit_3.text())
             assert by_num is not None, "By number should at least be 1"
         except AssertionError as error:
             # Output expected AssertionErrors.
@@ -116,27 +123,51 @@ class Ui_Dialog(object):
             return
 
         try:
-            x_off = self.lineEdit_3.text()
+            x_off = int(self.lineEdit_2.text())
             assert x_off is not None, "X-Off number should at least be 0"
         except AssertionError as error:
             # Output expected AssertionErrors.
             self.print_to_text_field("By number should at least be 0")
             return
 
+        try:
+            iterations = int(self.spinBox_3.text())
+            assert iterations > 0, "Must have at least 1 iteration"
+        except AssertionError as error:
+            # Output expected AssertionErrors.
+            self.print_to_text_field("Must have at least 1 iteration")
+            return
+
+        string = f'Running Taylor Series on {text} by {by_num} over the range of {from_num} to {to_num} ' \
+            f'for {iterations} iterations\n'
+        self.print_to_text_field(string)
+        self.plot(text, x_off, iterations, by_num, from_num, to_num)
+
 
     def print_to_text_field(self, text):
         self.textEdit.setFocus()
-        self.textEdit.setText(text)
+        self.textEdit.insertPlainText(text)
 
     def clear_boxes(self):
-        self.lineEdit.setFocus()
         self.lineEdit.clear()
-        self.lineEdit.setText("")
-        self.lineEdit.clearFocus()
-        self.textEdit.setFocus()
+        self.lineEdit.repaint()
         self.textEdit.clear()
-        self.textEdit.setText("")
-        self.textEdit.clearFocus()
+        self.textEdit.repaint()
+    #     every line edit and every spin box
+        self.lineEdit_2.clear()
+        self.lineEdit_2.repaint()
+        self.lineEdit_3.clear()
+        self.lineEdit_3.repaint()
+
+        self.spinBox.clear()
+        self.spinBox.repaint()
+
+        self.spinBox_2.clear()
+        self.spinBox_2.repaint()
+
+        self.spinBox_3.clear()
+        self.spinBox_3.repaint()
+
 
     # Factorial function
     @staticmethod
@@ -148,25 +179,35 @@ class Ui_Dialog(object):
 
     # Taylor approximation at x0 of the function 'function'
     @staticmethod
-    def taylor(function, x0, n, x=Symbol('x')):
+    def taylor(func, x0, n, x=Symbol('x')):
         i = 0
         p = 0
         while i <= n:
-            p = p + (function.diff(x, i).subs(x, x0)) / (factorial(i)) * (x - x0) ** i
+            p = p + (func.diff(x, i).subs(x, x0)) / (factorial(i)) * (x - x0) ** i
             i += 1
         return p
 
-    def plot(self, f, x0=0, n=20, by=1, x_lims=[-10, 10], y_lims=[-10, 10], npoints=800, x=Symbol('x')):
+    def plot(self, f, x0=0, n=10, by=1, min_num=0, max_num=1, x_lims=[-10, 10], y_lims=[-10, 10], npoints=1000, x=Symbol('x')):
         x1 = np.linspace(x_lims[0], x_lims[1], npoints)
         # Approximate up until n starting from 1 and using steps of by
+
         for j in range(1, n + 1, by):
             func = self.taylor(f, x0, j)
             taylor_lambda = lambdify(x, func, "numpy")
-            print('Taylor expansion at n=' + str(j), func)
-            plt.plot(x1, taylor_lambda(x1), label='Order ' + str(j))
-        # Plot the function to approximate (sine, in this case)
-        func_lambda = lambdify(x, f, "numpy")
-        plt.plot(x1, func_lambda(x1), label='Function of x')
+            string = f'Taylor expansion at n = {j} = {func}\n'
+            self.print_to_text_field(string)
+
+            if j in range(min_num, max_num + 1):
+                plt.plot(x1, taylor_lambda(x1), label='Order ' + str(j))
+
+        # Plot the function to approximate
+        try:
+            func_lambda = lambdify(x, f, "numpy")
+            plt.plot(x1, func_lambda(x1), label='Function of x')
+        except TypeError as err:
+            self.print_to_text_field("Function is unable to be serialized\n")
+            pass
+
 
         plt.xlim(x_lims)
         plt.ylim(y_lims)
