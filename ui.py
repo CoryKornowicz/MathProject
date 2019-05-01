@@ -1,14 +1,8 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-import functions as fn
 import sympy.parsing.latex as pl
-from sympy.functions import sin, cos, ln
-# import sympy as sy
 from sympy import *
 import numpy as np
 import matplotlib.pyplot as plt
-import assistance as ast
 
-# TODO: Add in Helping Statements and Default Values, And Resetting Values on Clear and then Plotting the right curves
 plt.style.use("ggplot")
 
 from PySide2 import QtCore, QtGui, QtWidgets
@@ -101,14 +95,14 @@ class Ui_Dialog(object):
 
         try:
             text = pl.parse_latex(self.lineEdit.text())
-            assert text is not None, "Function should not be empty"
+            assert text is not None, "Function should not be empty\n"
         except AssertionError as error:
             # Output expected AssertionErrors.
-            self.print_to_text_field("Function should not be empty")
+            self.print_to_text_field("Function should not be empty\n")
             return
         except Exception as exception:
             # Output unexpected Exceptions.
-            self.print_to_text_field("Function is improperly formatted")
+            self.print_to_text_field("Function is improperly formatted\n")
             return
 
         to_num = int(self.spinBox.text())
@@ -116,26 +110,26 @@ class Ui_Dialog(object):
 
         try:
             by_num = int(self.lineEdit_3.text())
-            assert by_num is not None, "By number should at least be 1"
+            assert by_num is not None, "By number should at least be 1\n"
         except AssertionError as error:
             # Output expected AssertionErrors.
-            self.print_to_text_field("By number should at least be 1")
+            self.print_to_text_field("By number should at least be 1\n")
             return
 
         try:
             x_off = int(self.lineEdit_2.text())
-            assert x_off is not None, "X-Off number should at least be 0"
+            assert x_off is not None, "X-Off number should at least be 0\n"
         except AssertionError as error:
             # Output expected AssertionErrors.
-            self.print_to_text_field("By number should at least be 0")
+            self.print_to_text_field("By number should at least be 0\n")
             return
 
         try:
             iterations = int(self.spinBox_3.text())
-            assert iterations > 0, "Must have at least 1 iteration"
+            assert iterations > 0, "Must have at least 1 iteration\n"
         except AssertionError as error:
             # Output expected AssertionErrors.
-            self.print_to_text_field("Must have at least 1 iteration")
+            self.print_to_text_field("Must have at least 1 iteration\n")
             return
 
         string = f'Running Taylor Series on {text} by {by_num} over the range of {from_num} to {to_num} ' \
@@ -206,7 +200,7 @@ class Ui_Dialog(object):
             plt.plot(x1, func_lambda(x1), label='Function of x')
         except TypeError as err:
             self.print_to_text_field("Function is unable to be serialized\n")
-            pass
+
 
 
         plt.xlim(x_lims)
